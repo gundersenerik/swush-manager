@@ -77,8 +77,9 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <RefreshCw className="w-8 h-8 animate-spin text-gray-400" />
+      <div className="flex flex-col items-center justify-center h-64 gap-3">
+        <RefreshCw className="w-8 h-8 animate-spin text-red-500" />
+        <p className="text-sm text-gray-500">Loading dashboard...</p>
       </div>
     )
   }
@@ -109,7 +110,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Secondary stats */}
-        <div className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-md hover:border-gray-300 transition-all duration-200">
+        <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-200">
           <div className="flex items-center gap-3 mb-3">
             <div className="p-2 bg-emerald-100 rounded-lg">
               <Users className="w-5 h-5 text-emerald-600" />
@@ -121,7 +122,7 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-md hover:border-gray-300 transition-all duration-200">
+        <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-200">
           <div className="flex items-center gap-3 mb-3">
             <div className="p-2 bg-violet-100 rounded-lg">
               <RefreshCw className="w-5 h-5 text-violet-600" />
@@ -131,7 +132,7 @@ export default function DashboardPage() {
           <div className="text-3xl font-bold text-gray-900 tabular-nums">{stats.recentSyncs}</div>
         </div>
 
-        <div className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-md hover:border-gray-300 transition-all duration-200">
+        <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-200">
           <div className="flex items-center gap-3 mb-3">
             <div className="p-2 bg-amber-100 rounded-lg">
               <Bell className="w-5 h-5 text-amber-600" />
@@ -192,7 +193,7 @@ export default function DashboardPage() {
                   <div>
                     <div className="font-semibold text-gray-900 group-hover:text-red-600 transition-colors">{game.name}</div>
                     <div className="text-sm text-gray-500 mt-0.5">
-                      <span className="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded">{game.game_key}</span>
+                      <span className="text-xs text-gray-500">{game.game_key}</span>
                       <span className="mx-2">·</span>
                       <span>Round {game.current_round}/{game.total_rounds || '?'}</span>
                     </div>

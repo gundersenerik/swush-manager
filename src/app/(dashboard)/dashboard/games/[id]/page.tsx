@@ -20,6 +20,7 @@ import {
   ChevronUp,
 } from 'lucide-react'
 import { Game, SyncLog, GameTrigger } from '@/types'
+import SnippetBuilder from '@/components/SnippetBuilder'
 
 // Extended Game type with additional API response data
 interface GameWithDetails extends Game {
@@ -31,31 +32,31 @@ interface GameWithDetails extends Game {
   triggers?: GameTrigger[]
 }
 
-// Liquid tag documentation
+// Liquid tag documentation with examples
 const liquidTags = [
-  { category: 'User Stats', tag: '{{response.data.user.team_name}}', description: 'User\'s team name' },
-  { category: 'User Stats', tag: '{{response.data.user.rank}}', description: 'Current overall rank' },
-  { category: 'User Stats', tag: '{{response.data.user.score}}', description: 'Total score' },
-  { category: 'User Stats', tag: '{{response.data.user.round_score}}', description: 'Score for current round' },
-  { category: 'User Stats', tag: '{{response.data.user.round_rank}}', description: 'Rank for current round' },
-  { category: 'User Stats', tag: '{{response.data.user.position_change}}', description: 'Positions gained/lost this round' },
-  { category: 'User Stats', tag: '{{response.data.user.percentile}}', description: 'User\'s percentile (0-100)' },
-  { category: 'User Stats', tag: '{{response.data.user.injured_count}}', description: 'Number of injured players in lineup' },
-  { category: 'User Stats', tag: '{{response.data.user.suspended_count}}', description: 'Number of suspended players in lineup' },
-  { category: 'Game Info', tag: '{{response.data.game.name}}', description: 'Game display name' },
-  { category: 'Game Info', tag: '{{response.data.game.current_round}}', description: 'Current round number' },
-  { category: 'Game Info', tag: '{{response.data.game.total_rounds}}', description: 'Total number of rounds' },
-  { category: 'Game Info', tag: '{{response.data.game.round_state}}', description: 'Current state (CurrentOpen, Ended, etc.)' },
-  { category: 'Game Info', tag: '{{response.data.game.trade_deadline}}', description: 'Next trade deadline (ISO date)' },
-  { category: 'Game Info', tag: '{{response.data.game.days_until_deadline}}', description: 'Days until next deadline' },
-  { category: 'Alerts', tag: '{{response.data.alerts.injured_players}}', description: 'Array of injured player names' },
-  { category: 'Alerts', tag: '{{response.data.alerts.suspended_players}}', description: 'Array of suspended player names' },
-  { category: 'Alerts', tag: '{{response.data.alerts.top_performer.name}}', description: 'Best performing player in lineup' },
-  { category: 'Alerts', tag: '{{response.data.alerts.top_performer.trend}}', description: 'Trend value of top performer' },
-  { category: 'Alerts', tag: '{{response.data.alerts.worst_performer.name}}', description: 'Worst performing player in lineup' },
-  { category: 'Trending', tag: '{{response.data.trending.hot}}', description: 'Array of top 5 trending players (name, team, trend)' },
-  { category: 'Trending', tag: '{{response.data.trending.falling}}', description: 'Array of 5 falling players (name, team, trend)' },
-  { category: 'Lineup', tag: '{{response.data.lineup}}', description: 'Array of lineup players with name, team, trend, value, growth, is_injured, is_suspended' },
+  { category: 'User Stats', name: 'team_name', tag: '{{response.data.user.team_name}}', description: 'User\'s team name', example: '"FC Vikings"' },
+  { category: 'User Stats', name: 'rank', tag: '{{response.data.user.rank}}', description: 'Current overall rank', example: '142' },
+  { category: 'User Stats', name: 'score', tag: '{{response.data.user.score}}', description: 'Total score', example: '2,450' },
+  { category: 'User Stats', name: 'round_score', tag: '{{response.data.user.round_score}}', description: 'Score for current round', example: '89' },
+  { category: 'User Stats', name: 'round_rank', tag: '{{response.data.user.round_rank}}', description: 'Rank for current round', example: '56' },
+  { category: 'User Stats', name: 'position_change', tag: '{{response.data.user.position_change}}', description: 'Positions gained/lost this round', example: '+12' },
+  { category: 'User Stats', name: 'percentile', tag: '{{response.data.user.percentile}}', description: 'User\'s percentile (0-100)', example: '85' },
+  { category: 'User Stats', name: 'injured_count', tag: '{{response.data.user.injured_count}}', description: 'Number of injured players in lineup', example: '1' },
+  { category: 'User Stats', name: 'suspended_count', tag: '{{response.data.user.suspended_count}}', description: 'Number of suspended players in lineup', example: '0' },
+  { category: 'Game Info', name: 'game.name', tag: '{{response.data.game.name}}', description: 'Game display name', example: '"Champions Manager 2025"' },
+  { category: 'Game Info', name: 'game.current_round', tag: '{{response.data.game.current_round}}', description: 'Current round number', example: '12' },
+  { category: 'Game Info', name: 'game.total_rounds', tag: '{{response.data.game.total_rounds}}', description: 'Total number of rounds', example: '38' },
+  { category: 'Game Info', name: 'game.round_state', tag: '{{response.data.game.round_state}}', description: 'Current state (CurrentOpen, Ended, etc.)', example: '"CurrentOpen"' },
+  { category: 'Game Info', name: 'game.trade_deadline', tag: '{{response.data.game.trade_deadline}}', description: 'Next trade deadline (ISO date)', example: '"2025-02-15T18:00:00Z"' },
+  { category: 'Game Info', name: 'game.days_until_deadline', tag: '{{response.data.game.days_until_deadline}}', description: 'Days until next deadline', example: '3' },
+  { category: 'Alerts', name: 'alerts.injured_players', tag: '{{response.data.alerts.injured_players}}', description: 'Array of injured player names', example: '["Haaland", "Salah"]' },
+  { category: 'Alerts', name: 'alerts.suspended_players', tag: '{{response.data.alerts.suspended_players}}', description: 'Array of suspended player names', example: '["Bruno Fernandes"]' },
+  { category: 'Alerts', name: 'alerts.top_performer.name', tag: '{{response.data.alerts.top_performer.name}}', description: 'Best performing player in lineup', example: '"Palmer"' },
+  { category: 'Alerts', name: 'alerts.top_performer.trend', tag: '{{response.data.alerts.top_performer.trend}}', description: 'Trend value of top performer', example: '15.2' },
+  { category: 'Alerts', name: 'alerts.worst_performer.name', tag: '{{response.data.alerts.worst_performer.name}}', description: 'Worst performing player in lineup', example: '"Werner"' },
+  { category: 'Trending', name: 'trending.hot', tag: '{{response.data.trending.hot}}', description: 'Array of top 5 trending players', example: '[{name: "Palmer", team: "Chelsea", trend: 15.2}]' },
+  { category: 'Trending', name: 'trending.falling', tag: '{{response.data.trending.falling}}', description: 'Array of 5 falling players', example: '[{name: "Werner", team: "Spurs", trend: -8.4}]' },
+  { category: 'Lineup', name: 'lineup', tag: '{{response.data.lineup}}', description: 'Array of lineup players with details', example: '[{name: "Salah", team: "Liverpool", ...}]' },
 ]
 
 export default function GameDetailPage() {
@@ -171,7 +172,7 @@ export default function GameDetailPage() {
     try {
       await navigator.clipboard.writeText(text)
       setCopiedText(label)
-      setTimeout(() => setCopiedText(null), 2000)
+      setTimeout(() => setCopiedText(null), 3000)
     } catch (error) {
       console.error('Failed to copy:', error)
     }
@@ -193,8 +194,9 @@ export default function GameDetailPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <RefreshCw className="w-8 h-8 animate-spin text-gray-400" />
+      <div className="flex flex-col items-center justify-center h-64 gap-3">
+        <RefreshCw className="w-8 h-8 animate-spin text-red-500" />
+        <p className="text-sm text-gray-500">Loading game details...</p>
       </div>
     )
   }
@@ -212,16 +214,6 @@ export default function GameDetailPage() {
   const syncLogs = game.sync_logs || []
   const visibleLogs = showAllLogs ? syncLogs : syncLogs.slice(0, 2)
 
-  // Group liquid tags by category
-  const tagsByCategory = liquidTags.reduce<Record<string, typeof liquidTags>>((acc, tag) => {
-    const category = tag.category
-    if (!acc[category]) {
-      acc[category] = []
-    }
-    acc[category]!.push(tag)
-    return acc
-  }, {})
-
   return (
     <div>
       <div className="mb-10">
@@ -236,13 +228,13 @@ export default function GameDetailPage() {
         <div className="flex items-start justify-between">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 tracking-tight">{game.name}</h1>
-            <p className="mt-2 text-gray-500 font-mono text-sm bg-gray-100 inline-block px-2 py-1 rounded">{game.game_key}</p>
+            <p className="mt-2 text-gray-500 text-sm">{game.game_key}</p>
           </div>
           <div className="flex gap-3">
             <button
               onClick={handleDebug}
               disabled={debugging}
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-gray-100 text-gray-700 border border-gray-200 rounded-lg font-medium hover:bg-gray-200 hover:border-gray-300 disabled:opacity-50 transition-all duration-200"
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-gray-100 text-gray-700 border border-gray-200 rounded-lg font-medium hover:bg-gray-200 hover:border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
             >
               {debugging ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -254,7 +246,7 @@ export default function GameDetailPage() {
             <button
               onClick={handleSync}
               disabled={syncing}
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 hover:shadow-md disabled:opacity-50 transition-all duration-200 active:scale-[0.98]"
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 active:scale-[0.98]"
             >
               {syncing ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -388,134 +380,40 @@ export default function GameDetailPage() {
           </div>
         </div>
 
-        <div className="p-6 space-y-6">
-          {/* API Endpoint */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              API Endpoint
-            </label>
-            <div className="flex items-center gap-2">
-              <code className="flex-1 bg-gray-100 px-4 py-2 rounded-lg text-sm font-mono text-gray-800 overflow-x-auto">
-                {connectedContentUrl}
-              </code>
-              <button
-                onClick={() => copyToClipboard(connectedContentUrl, 'endpoint')}
-                className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg"
-                title="Copy endpoint"
-              >
-                {copiedText === 'endpoint' ? (
-                  <Check className="w-5 h-5 text-green-500" />
-                ) : (
-                  <Copy className="w-5 h-5" />
-                )}
-              </button>
-            </div>
-            <p className="text-xs text-gray-500 mt-1">
-              Replace <code className="bg-gray-100 px-1 rounded">{'{{$'}{'{user_id}}}'}</code> with your Braze user identifier attribute
+        {/* Step 1: Connected Content String */}
+        <div className="p-6 border-b border-gray-200">
+          <div className="mb-4">
+            <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-1">
+              Step 1: Add this to the top of your template
+            </h3>
+            <p className="text-xs text-gray-500">
+              Replace <code className="bg-gray-100 px-1 rounded">YOUR_API_KEY</code> with your actual API key
             </p>
           </div>
-
-          {/* Connected Content String */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Connected Content String
-            </label>
-            <div className="flex items-start gap-2">
-              <code className="flex-1 bg-gray-900 text-green-400 px-4 py-3 rounded-lg text-sm font-mono overflow-x-auto whitespace-pre-wrap">
-                {connectedContentString}
-              </code>
-              <button
-                onClick={() => copyToClipboard(connectedContentString, 'connected')}
-                className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg flex-shrink-0"
-                title="Copy Connected Content"
-              >
-                {copiedText === 'connected' ? (
-                  <Check className="w-5 h-5 text-green-500" />
-                ) : (
-                  <Copy className="w-5 h-5" />
-                )}
-              </button>
-            </div>
-            <p className="text-xs text-gray-500 mt-1">
-              Paste this at the top of your email template. Replace <code className="bg-gray-100 px-1 rounded">YOUR_API_KEY</code> with your actual API key.
-            </p>
-          </div>
-
-          {/* Liquid Tags Table */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Available Liquid Tags
-            </label>
-            <div className="border border-gray-200 rounded-lg overflow-hidden">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="bg-gray-50 border-b border-gray-200">
-                    <th className="px-4 py-2 text-left font-medium text-gray-600">Category</th>
-                    <th className="px-4 py-2 text-left font-medium text-gray-600">Liquid Tag</th>
-                    <th className="px-4 py-2 text-left font-medium text-gray-600">Description</th>
-                    <th className="px-4 py-2 w-10"></th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {Object.entries(tagsByCategory).map(([category, tags]) =>
-                    tags.map((item, idx) => (
-                      <tr key={item.tag} className="hover:bg-gray-50">
-                        {idx === 0 && (
-                          <td
-                            className="px-4 py-2 font-medium text-gray-900 bg-gray-50 align-top"
-                            rowSpan={tags.length}
-                          >
-                            {category}
-                          </td>
-                        )}
-                        <td className="px-4 py-2">
-                          <code className="text-xs bg-gray-100 px-2 py-1 rounded text-red-600 font-mono">
-                            {item.tag}
-                          </code>
-                        </td>
-                        <td className="px-4 py-2 text-gray-600">{item.description}</td>
-                        <td className="px-4 py-2">
-                          <button
-                            onClick={() => copyToClipboard(item.tag, item.tag)}
-                            className="p-1 text-gray-400 hover:text-gray-600 rounded"
-                            title="Copy tag"
-                          >
-                            {copiedText === item.tag ? (
-                              <Check className="w-4 h-4 text-green-500" />
-                            ) : (
-                              <Copy className="w-4 h-4" />
-                            )}
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Example Usage */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Example Email Template
-            </label>
-            <pre className="bg-gray-900 text-green-400 px-4 py-3 rounded-lg text-xs font-mono overflow-x-auto">
-{`{% connected_content ${apiBaseUrl}/api/v1/users/{{$\{user_id}}}/games/${game.game_key} :headers {"x-api-key": "YOUR_API_KEY"} :save response %}
-
-{% if response.success %}
-  Hi! Your team "{{response.data.user.team_name}}" is ranked #{{response.data.user.rank}}!
-
-  Current round: {{response.data.game.current_round}} of {{response.data.game.total_rounds}}
-  Your score: {{response.data.user.score}} points
-
-  {% if response.data.alerts.injured_players.size > 0 %}
-    Warning: You have injured players: {{response.data.alerts.injured_players | join: ", "}}
-  {% endif %}
-{% endif %}`}
-            </pre>
+          <div className="flex items-start gap-2">
+            <code className="flex-1 bg-gray-900 text-green-400 px-4 py-3 rounded-lg text-sm font-mono overflow-x-auto whitespace-pre-wrap">
+              {connectedContentString}
+            </code>
+            <button
+              onClick={() => copyToClipboard(connectedContentString, 'connected')}
+              className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg flex-shrink-0"
+              title="Copy Connected Content"
+            >
+              {copiedText === 'connected' ? (
+                <Check className="w-5 h-5 text-green-500" />
+              ) : (
+                <Copy className="w-5 h-5" />
+              )}
+            </button>
           </div>
         </div>
+
+        {/* Step 2: Snippet Builder */}
+        <SnippetBuilder
+          tags={liquidTags}
+          onCopy={copyToClipboard}
+          copiedText={copiedText}
+        />
       </div>
 
       {/* Triggers */}

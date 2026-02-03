@@ -124,8 +124,9 @@ export default function SettingsPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <RefreshCw className="w-8 h-8 animate-spin text-gray-400" />
+      <div className="flex flex-col items-center justify-center h-64 gap-3">
+        <RefreshCw className="w-8 h-8 animate-spin text-red-500" />
+        <p className="text-sm text-gray-500">Loading settings...</p>
       </div>
     )
   }
@@ -142,7 +143,7 @@ export default function SettingsPage() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 hover:shadow-md disabled:opacity-50 transition-all duration-200 active:scale-[0.98]"
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 active:scale-[0.98]"
         >
           {saving ? (
             <RefreshCw className="w-4 h-4 animate-spin" />
@@ -181,7 +182,7 @@ export default function SettingsPage() {
             <button
               onClick={testSwushConnection}
               disabled={testingSwush || !settings.swush_api_key}
-              className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 hover:border-gray-400 disabled:opacity-50 transition-all duration-200"
+              className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 hover:border-gray-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
             >
               {testingSwush ? (
                 <RefreshCw className="w-4 h-4 animate-spin" />
@@ -234,7 +235,7 @@ export default function SettingsPage() {
             <button
               onClick={testBrazeConnection}
               disabled={testingBraze || !settings.braze_api_key}
-              className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 hover:border-gray-400 disabled:opacity-50 transition-all duration-200"
+              className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 hover:border-gray-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
             >
               {testingBraze ? (
                 <RefreshCw className="w-4 h-4 animate-spin" />

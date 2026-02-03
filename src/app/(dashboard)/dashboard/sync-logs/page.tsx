@@ -97,8 +97,9 @@ export default function SyncLogsPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <RefreshCw className="w-8 h-8 animate-spin text-gray-400" />
+      <div className="flex flex-col items-center justify-center h-64 gap-3">
+        <RefreshCw className="w-8 h-8 animate-spin text-red-500" />
+        <p className="text-sm text-gray-500">Loading sync logs...</p>
       </div>
     )
   }
@@ -136,22 +137,22 @@ export default function SyncLogsPage() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-gray-200 bg-gray-50/80">
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Status
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Game
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Trigger
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Synced
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Duration
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Started
                 </th>
                 <th className="px-6 py-4"></th>

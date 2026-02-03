@@ -92,7 +92,7 @@ export default function ApiKeysPage() {
   const copyToClipboard = async (text: string) => {
     await navigator.clipboard.writeText(text)
     setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+    setTimeout(() => setCopied(false), 3000)
   }
 
   const formatDate = (dateString: string | null) => {
@@ -102,8 +102,9 @@ export default function ApiKeysPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <RefreshCw className="w-8 h-8 animate-spin text-gray-400" />
+      <div className="flex flex-col items-center justify-center h-64 gap-3">
+        <RefreshCw className="w-8 h-8 animate-spin text-red-500" />
+        <p className="text-sm text-gray-500">Loading API keys...</p>
       </div>
     )
   }
@@ -186,7 +187,7 @@ export default function ApiKeysPage() {
             <button
               type="submit"
               disabled={creating}
-              className="px-6 py-2.5 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 hover:shadow-md disabled:opacity-50 transition-all duration-200 active:scale-[0.98]"
+              className="px-6 py-2.5 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 active:scale-[0.98]"
             >
               {creating ? 'Creating...' : 'Create'}
             </button>
@@ -224,19 +225,19 @@ export default function ApiKeysPage() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-gray-200 bg-gray-50/80">
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Name
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Key
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Created
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Last used
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Status
                 </th>
                 <th className="px-6 py-4"></th>

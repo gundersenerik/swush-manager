@@ -8,6 +8,7 @@ import { createClient } from '@/lib/supabase/client'
 import {
   LayoutDashboard,
   Gamepad2,
+  Hexagon,
   RefreshCw,
   Key,
   Settings,
@@ -68,7 +69,7 @@ export default function DashboardLayout({
         {/* Logo */}
         <div className="flex items-center h-16 px-6 border-b border-gray-200 bg-gradient-to-r from-white to-red-50/30">
           <div className="w-9 h-9 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center shadow-md">
-            <Gamepad2 className="w-5 h-5 text-white" />
+            <Hexagon className="w-5 h-5 text-white" />
           </div>
           <div className="ml-3">
             <span className="text-lg font-bold text-gray-900 tracking-tight">
@@ -91,7 +92,7 @@ export default function DashboardLayout({
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive
                     ? 'bg-red-100 text-red-700 border-l-4 border-red-600 pl-2 shadow-sm'
-                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 hover:translate-x-0.5 border-l-4 border-transparent pl-2'
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 border-l-4 border-transparent pl-2'
                 }`}
               >
                 <item.icon className={`w-5 h-5 ${isActive ? 'text-red-600' : ''}`} />
@@ -105,7 +106,7 @@ export default function DashboardLayout({
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 bg-gray-50/50">
           {userEmail && (
             <div className="flex items-center gap-3 mb-4 p-2 bg-white rounded-lg border border-gray-100">
-              <div className="w-9 h-9 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center shadow-sm">
+              <div className="w-9 h-9 bg-gradient-to-br from-gray-600 to-gray-700 rounded-full flex items-center justify-center shadow-sm">
                 <User className="w-4 h-4 text-white" />
               </div>
               <div className="flex-1 min-w-0">
@@ -119,7 +120,7 @@ export default function DashboardLayout({
           <button
             onClick={handleSignOut}
             disabled={signingOut}
-            className="flex items-center justify-center gap-2 w-full px-3 py-2.5 text-sm font-medium text-gray-600 hover:bg-white hover:text-gray-900 hover:shadow-sm rounded-lg transition-all duration-200 disabled:opacity-50 border border-transparent hover:border-gray-200"
+            className="flex items-center justify-center gap-2 w-full px-3 py-2.5 text-sm font-medium text-gray-600 hover:bg-red-50 hover:text-red-600 hover:shadow-sm rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed border border-transparent hover:border-red-200"
           >
             <LogOut className="w-4 h-4" />
             {signingOut ? 'Signing out...' : 'Sign out'}
@@ -132,7 +133,7 @@ export default function DashboardLayout({
 
       {/* Main content */}
       <main className="pl-64">
-        <div className="p-8">
+        <div className="p-8 max-w-7xl mx-auto">
           {children}
         </div>
       </main>

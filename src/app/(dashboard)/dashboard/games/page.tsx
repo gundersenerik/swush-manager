@@ -55,8 +55,9 @@ export default function GamesPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <RefreshCw className="w-8 h-8 animate-spin text-gray-400" />
+      <div className="flex flex-col items-center justify-center h-64 gap-3">
+        <RefreshCw className="w-8 h-8 animate-spin text-red-500" />
+        <p className="text-sm text-gray-500">Loading games...</p>
       </div>
     )
   }
@@ -117,25 +118,25 @@ export default function GamesPage() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-gray-200 bg-gray-50/80">
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Game
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Sport
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Round
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Users
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Sync interval
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Last synced
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Status
                 </th>
                 <th className="px-6 py-4"></th>
@@ -151,7 +152,7 @@ export default function GamesPage() {
                 >
                   <td className="px-6 py-4">
                     <div className="font-semibold text-gray-900">{game.name}</div>
-                    <div className="text-xs text-gray-500 font-mono mt-0.5">{game.game_key}</div>
+                    <div className="text-xs text-gray-500 mt-0.5">{game.game_key}</div>
                   </td>
                   <td className="px-6 py-4">
                     <span className={`inline-flex px-2.5 py-1 text-xs font-medium rounded-lg ${getSportBadgeColor(game.sport_type)}`}>
